@@ -1,0 +1,31 @@
+{
+  "name": "retype-module-boilerplate",
+  "version": "0.1.1",
+  "description": "React component module with typescript support",
+  "main": "dist/commnonjs/index.js",
+  "typings": "dist/commnonjs/index.d.ts",
+  "author": "Lai Chia Sheng <jason0911520@gmail.com> (http://groupystinks.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^20.0.8",
+    "@types/node": "^8.0.28",
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
+    "react-dev-utils": "^3.0.1",
+    "react-error-overlay": "^1.0.8",
+    "ts-jest": "^20.0.7",
+    "ts-loader": "^2.2.1",
+    "tslint": "^5.2.0",
+    "tslint-loader": "^3.5.3",
+    "tslint-react": "^3.0.0",
+    "typescript": "~2.4.0"
+  },
+  "scripts": {
+    "ts": "tsc --watch",
+    "build": "tsc --outDir dist"
+  }
+}
