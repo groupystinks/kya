@@ -1,31 +1,49 @@
 {
-  "name": "retype-module-boilerplate",
+  "name": "kya",
   "version": "0.1.1",
-  "description": "React component module with typescript support",
-  "main": "dist/commnonjs/index.js",
-  "typings": "dist/commnonjs/index.d.ts",
+  "description": "Designed for form validation",
+  "main": "dist/index.js",
+  "types": "dist/kya.d.ts",
   "author": "Lai Chia Sheng <jason0911520@gmail.com> (http://groupystinks.com/)",
   "license": "MIT",
-  "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
-  },
   "devDependencies": {
     "@types/jest": "^20.0.8",
     "@types/node": "^8.0.28",
-    "@types/react": "^16.0.5",
-    "@types/react-dom": "^15.5.4",
-    "react-dev-utils": "^3.0.1",
-    "react-error-overlay": "^1.0.8",
-    "ts-jest": "^20.0.7",
-    "ts-loader": "^2.2.1",
+    "jest": "^23.5.0",
+    "rimraf": "2.6.2",
+    "ts-jest": "^23.1.4",
+    "ts-loader": "^4.5.0",
     "tslint": "^5.2.0",
     "tslint-loader": "^3.5.3",
-    "tslint-react": "^3.0.0",
-    "typescript": "~2.4.0"
+    "tslint-react": "^3.0.0"
   },
   "scripts": {
     "ts": "tsc --watch",
-    "build": "tsc --outDir dist"
+    "clean": "rimraf dist",
+    "build": "tsc --outDir dist",
+    "test": "npm run build && node --trace-warnings node_modules/.bin/jest --no-cache",
+    "test:watch": "node --trace-warnings node_modules/.bin/jest --no-cache --watch",
+    "prepublish": "npm run clean && npm run test"
+  },
+  "dependencies": {
+    "@types/invariant": "2.2.29",
+    "invariant": "2.2.2",
+    "typescript": "3.0.1"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/web"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
   }
 }

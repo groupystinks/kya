@@ -1,4 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Hello_1 = require("./Hello/Hello");
-exports.Hello = Hello_1.default;
+var kya_1 = require("./kya");
+exports.default = kya_1.default;

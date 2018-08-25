@@ -1,1 +1,2 @@
-export { default as Hello } from './Hello/Hello'
+import kya from './kya'
+export default kya
