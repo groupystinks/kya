@@ -1,11 +1,20 @@
 {
   "name": "kya",
   "version": "0.1.1",
-  "description": "Designed for form validation",
+  "description": "Javascript Object Validation",
   "main": "dist/index.js",
   "types": "dist/kya.d.ts",
   "author": "Lai Chia Sheng <jason0911520@gmail.com> (http://groupystinks.com/)",
   "license": "MIT",
+  "keywords": [
+    "schema",
+    "validation",
+    "form validation"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ],
   "devDependencies": {
     "@types/jest": "^20.0.8",
     "@types/node": "^8.0.28",
