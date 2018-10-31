@@ -1,20 +1,20 @@
 import messages from './messages';
 
 interface StringType {
-  type: Function,
+  type: Function;
 }
 
-function typeCheck(target: any) {
-  return typeof target === 'string'
+function typeCheck(target: {}) {
+  return typeof target === 'string';
 }
 
 const StringType: StringType = {
   type(errorMsg?: String) {
-    return (target: any) => {
-      if (typeCheck(target)) {return false}
+    return (target: {}) => {
+      if (typeCheck(target)) {return false; }
 
-      return errorMsg || messages.string
-    }
+      return {message: errorMsg} || {message: messages.string };
+    };
   },
 
   // no support for common string pattern?
@@ -57,6 +57,6 @@ const StringType: StringType = {
   //     return false
   //   }
   // },
-}
+};
 
-export default StringType
+export default StringType;

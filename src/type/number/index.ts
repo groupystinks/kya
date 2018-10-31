@@ -1,20 +1,20 @@
 import messages from './messages';
 
 interface NumberType {
-  type: Function,
+  type: Function;
 }
 
 const NumberType: NumberType = {
   type(errorMsg?: String) {
-    return function (target: any) {
+    return function (target: {}) {
       if (
         typeof target === 'number' &&
         !isNaN(target)
       ) {
-        return false
+        return false;
       }
-      return errorMsg || messages.number
-    }
+      return {message: errorMsg} || {message: messages.number};
+    };
   },
   // max(value: Number, errorMsg?: String) {
   //   return function (target: any) {
@@ -36,6 +36,6 @@ const NumberType: NumberType = {
   //     return false
   //   }
   // },
-}
+};
 
-export default NumberType
+export default NumberType;

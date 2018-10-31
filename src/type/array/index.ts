@@ -1,17 +1,17 @@
 import messages from './messages';
 
 interface ArrayType {
-  type: Function,
+  type: Function;
 }
 
 const ArrayType: ArrayType = {
   type(errorMsg?: String) {
-    return function (target: any) {
+    return function (target: {}) {
       if (Object.prototype.toString.call(target)  === '[object Array]') {
-        return false
+        return false;
       }
-      return errorMsg || messages.array
-    }
+      return {message: errorMsg} || {message: messages.array};
+    };
   },
   // length(length: Number, errorMsg?: String) {
   //   return function (target: any) {
@@ -43,6 +43,6 @@ const ArrayType: ArrayType = {
   //     return false
   //   }
   // },
-}
+};
 
-export default ArrayType
+export default ArrayType;

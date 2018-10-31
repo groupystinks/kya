@@ -1,19 +1,17 @@
 import messages from './messages';
 
 interface ObjectType {
-  type: Function,
+  type: Function;
 }
 
 const ObjectType: ObjectType = {
   type(errorMsg?: String) {
-    return function (target: any) {
-      // To determine whether target is an object, use toString to detect object class.
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString#Using_toString()_to_detect_object_class
+    return function (target: {}) {
       if (Object.prototype.toString.call(target) === '[object Object]') {
-        return false
+        return false;
       }
-      return errorMsg || messages.object
-    }
+      return {message: errorMsg} || {message: messages.object};
+    };
   },
 
   // // Object keys list
@@ -27,6 +25,6 @@ const ObjectType: ObjectType = {
   //     })
   //   }
   // }
-}
+};
 
-export default ObjectType
+export default ObjectType;

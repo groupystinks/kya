@@ -6,6 +6,10 @@
   "types": "dist/kya.d.ts",
   "author": "Lai Chia Sheng <jason0911520@gmail.com> (http://groupystinks.com/)",
   "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/groupystinks/kya.git"
+  },
   "keywords": [
     "schema",
     "validation",
@@ -32,7 +36,8 @@
     "build": "tsc --outDir dist",
     "test": "npm run build && node --trace-warnings node_modules/.bin/jest --no-cache",
     "test:watch": "node --trace-warnings node_modules/.bin/jest --no-cache --watch",
-    "prepublish": "npm run clean && npm run test"
+    "lint": "tslint 'src/**/*.ts{,x}'",
+    "prepublish": "npm run clean && npm run test && npm run lint"
   },
   "dependencies": {
     "@types/invariant": "2.2.29",

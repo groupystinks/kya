@@ -4,6 +4,6 @@ const messages = {
   max: 'Exceed expected length.',
   min: 'Below expected length.',
   lengthMsg: 'Expected legnth of string is not matched',
-}
+};
 
-export default messages
+export default messages;

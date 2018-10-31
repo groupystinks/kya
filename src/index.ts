@@ -1,2 +1,2 @@
-import kya from './kya'
-export default kya
+import kya from './kya';
+export default kya;

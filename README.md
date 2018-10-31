@@ -2,6 +2,11 @@
 
 ## Kya is written to make form validation easier. So it support JS type, required field and easy customized validate function, all in single object as descriptor.
 
+## Install
+
+```bash
+npm i kya --save
+```
 
 ### Examples
 ```javascript
@@ -56,13 +61,14 @@
 interface Schema {
   [field: string]: FieldSchema;
 }
-interface FieldSchema {
-  type: string;
-  required?: boolean;
-  [field: string]: any;
-}
-interface Messages {
-  [field: string]: any;
+type FieldSchema =
+  { type: string; } &
+  {required?: boolean; } &
+  {
+    [customrule: string]: (value: any) => Promise<boolean> | boolean
+  };
+export interface Messages {
+  [field: string]: Object;
 }
 ```
 

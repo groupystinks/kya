@@ -33,6 +33,9 @@ class App extends React.Component {
       {
         username: usernameValidator,
         telephone: telephoneValidator,
+        numberonly: {
+          type: 'number'
+        }
       },
       {
         username: {
@@ -42,18 +45,22 @@ class App extends React.Component {
         },
         telephone: {
           type: 'Type error!',
+          // limit: (arg) => <span>Hi</span>,
           limit: 'Limit error!',
+        },
+        numberonly: {
+          type: 'NUMBER ONLY'
         }
       }
     )
 
     schema
-      .validate({ username: 'jason', telephone: '1989230' })
+      .validate({ username: 'jason', telephone: '19', numberonly: '18' })
       .then(result => {
         console.log('result', result)
       })
     schema
-      .validateOn({  telephone: '19' }, 'telephone')
+      .validateOn({ telephone: '19' }, ['telephone'])
       .then(resultOn => {
         console.log('resultOn', resultOn)
       })

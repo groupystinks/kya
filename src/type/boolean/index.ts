@@ -1,18 +1,18 @@
 import messages from './messages';
 
 interface BooleanType {
-  type: Function
+  type: Function;
 }
 
 const BooleanType: BooleanType = {
   type(errorMsg?: String) {
-    return function (target: any) {
+    return function (target: {}) {
       if (typeof target === 'boolean') {
-        return false
+        return false;
       }
-      return errorMsg || messages.boolean
-    }
+      return {message: errorMsg} || {message: messages.boolean};
+    };
   }
-}
+};
 
-export default BooleanType
+export default BooleanType;

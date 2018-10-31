@@ -1,7 +1,7 @@
 function kya_required(composedFunc: Function, errorMsg?: String) {
-  return function withRequired(arg: any) {
-    return composedFunc(arg, false, errorMsg)
-  }
+  return function withRequired(arg: {}) {
+    return composedFunc(arg, false, errorMsg);
+  };
 }
 
-export default kya_required
+export default kya_required;
