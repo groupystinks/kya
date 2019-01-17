@@ -3,6 +3,26 @@ import compose from './compose';
 import * as types from './type';
 import requiredCompose from './exist/required';
 import { isFuntion, isString } from './helper/utils';
+import getType from './helper/getType';
+
+/**
+ * @todo
+ * support javascript native types:
+    String v
+    Number v
+    Date v
+    Boolean v
+    Array v
+    [{name: string}] like validation v
+    One level deep object v
+    Nested object v
+    Map
+    Set
+    Buffer
+ * Global error message.
+ * 
+ * 
+ */
 
 export { default as compose } from './compose';
 
@@ -12,13 +32,13 @@ export interface Schema {
   [field: string]: FieldSchema;
 }
 
-type Type = { type: string; };
+type Type = { type: string; } | types.SupportType;
 
 export type FieldSchema =
   (Type & {required?: boolean; }) &
   {
     // tslint:disable-next-line:no-any
-    [customrule: string]: (value: any) => Promise<boolean> | boolean
+    [customrule: string]: any
   };
 
 export interface Messages {
@@ -34,30 +54,36 @@ export interface FieldErrorMessages {
 }
 
 function getValidator(fieldSchmea: FieldSchema, fieldMessages: FieldErrorMessages, field: string): Function {
-  invariant(fieldSchmea.type, `Kya: type is nessasray in ${field}\'s schema`);
   const { type, required, ...rest } = fieldSchmea;
-  // adaptation API into inner logic which return false mean validation correct, and return string
-  // mean validation error.
-  const rules = Object.keys(rest).map((ruleKey) => {
-    const fieldMsgProducer = (fieldMessages[ruleKey] || '');
-    // tslint:disable-next-line:no-any
-    return async (value: any) => {
-      let fieldMsg;
+  let fieldType = type;
+  let rules: Array<(value: any) => Promise<false | { message: any; }>> = [];
+  if (!fieldType) {
+    fieldType = fieldSchmea;
+  } else {
+    // adaptation API into inner logic which return false mean validation correct, and return string
+    // mean validation error.
+    rules = Object.keys(rest).map((ruleKey) => {
+      const fieldMsgProducer = (fieldMessages[ruleKey] || '');
+      // tslint:disable-next-line:no-any
+      return async (value: any) => {
+        let fieldMsg;
 
-      if (isFuntion(fieldMsgProducer)) {
-        // we make fieldMsgProducer is executable by isFunction.
-        fieldMsg = fieldMsgProducer(value) || '';
-      } else if (isString(fieldMsgProducer)) {
-        fieldMsg = fieldMsgProducer;
-      } else {
-        invariant(false, 'Kya: message field should be either Function or String');
-      }
+        if (isFuntion(fieldMsgProducer)) {
+          // we make fieldMsgProducer is executable by isFunction.
+          fieldMsg = fieldMsgProducer(value) || '';
+        } else if (isString(fieldMsgProducer)) {
+          fieldMsg = fieldMsgProducer;
+        } else {
+          invariant(false, 'Kya: message field should be either Function or String');
+        }
 
-      return await rest[ruleKey](value) ? false : { message: fieldMsg };
-    };
-  });
+        return await rest[ruleKey](value) ? false : { message: fieldMsg };
+      };
+    });
+  }
 
-  const composed = compose(types[type].type(fieldMessages.type), ...rules);
+  const [typeName, typeOptions] = getType(fieldType);
+  const composed = compose(types[typeName].type(fieldMessages.type, typeOptions), ...rules);
 
   if (required) {
     return requiredCompose(composed, fieldMessages.required);

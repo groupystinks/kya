@@ -1,16 +1,22 @@
 import messages from './messages';
+import { typeOptions } from '../../helper/getType';
+import { isArray } from '../../helper/utils';
+import { supportTypeValidate } from '../index';
 
 interface ArrayType {
   type: Function;
 }
 
 const ArrayType: ArrayType = {
-  type(errorMsg?: String) {
+  type(errorMsg?: String, options: typeOptions = {}) {
     return function (target: {}) {
-      if (Object.prototype.toString.call(target)  === '[object Array]') {
+      if (!isArray(target)) { return {message: errorMsg} || {message: messages.array}; }
+
+      if (options.arrayOf === undefined) {
         return false;
       }
-      return {message: errorMsg} || {message: messages.array};
+
+      return supportTypeValidate[options.arrayOf].type(errorMsg, options)(target[0])
     };
   },
   // length(length: Number, errorMsg?: String) {

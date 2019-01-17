@@ -1,30 +1,42 @@
 import messages from './messages';
+import getType from '../../helper/getType';
+import { isObject, captitalize } from '../../helper/utils';
+import * as types from '../index';
 
 interface ObjectType {
   type: Function;
 }
 
+type typeOptions = {
+  objectOf: Object,
+}
+
 const ObjectType: ObjectType = {
-  type(errorMsg?: String) {
+  type(errorMsg?: String, options: typeOptions = { objectOf: {}}) {
     return function (target: {}) {
-      if (Object.prototype.toString.call(target) === '[object Object]') {
+      if (!isObject(target)) { return {message: errorMsg} || {message: messages.object}; }
+
+      if (options.objectOf === undefined) {
         return false;
       }
+
+      const isAllRight = Object.keys(options.objectOf).every(key => {
+        const fieldSchmea = options.objectOf[key]
+        let fieldType = fieldSchmea.type
+        if (!fieldType) {
+          fieldType = fieldSchmea;
+        }
+        const [typeName, typeOptions] = getType(fieldType);
+        return types.supportTypeValidate[captitalize(typeName)].type(errorMsg, typeOptions)(target[key]) === false
+      });
+
+      if (isAllRight) {
+        return false;
+      }
+
       return {message: errorMsg} || {message: messages.object};
     };
-  },
-
-  // // Object keys list
-  // keys(keys: Array<string>, errorMsg?: string) {
-  //   return function (target: any) {
-  //     keys.forEach(key => {
-  //       if (typeof target[key] === 'undefined') {
-  //         return errorMsg || messages.key
-  //       }
-  //       return false
-  //     })
-  //   }
-  // }
+  }
 };
 
 export default ObjectType;

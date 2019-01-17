@@ -1,6 +1,6 @@
 # Kya - Javascript Object Validation
 
-## Kya is written to make form validation easier. So it support JS type, required field and easy customized validate function, all in single object as descriptor.
+## Kya is written to make object validation easier. It support JS native type, required field and easy customized validate function, all in single object as descriptor. The validation is asynchronous.
 
 ## Install
 
@@ -8,26 +8,26 @@
 npm i kya --save
 ```
 
+## Support type
+- String
+- Number
+- Date
+- Boolean
+- Array
+- Array<type> validation
+- Nested object validation
+
 ### Examples
 ```javascript
   const usernameValidator = {
     required: true,
-    type: 'string',
-  }
-  const telephoneValidator = {
-    type: 'string',
-    limit(value) {
-      if (value.length < 5 || value.length > 13) {
-        return false
-      }
-      return true;
-    }
+    type: String,
   }
 
   const schema = kya(
     {
       username: usernameValidator,
-      telephone: telephoneValidator,
+      telephone: Number,
     },
     {
       username: {
@@ -35,14 +35,13 @@ npm i kya --save
         type: 'Type error!'
       },
       telephone: {
-        type: 'Type error!',
-        limit: 'Limit error!'
+        type: 'Type error!'
       },
     }
   )
 
   schema
-    .validate({ username: 'kya', telephone: '1989230' })
+    .validate({ username: 'kya', age: 19 })
     .then(result => {
       console.log('result', result) // { username: { valid: true }, telephone: { valid: true } }​​​​​
     })
@@ -61,11 +60,12 @@ npm i kya --save
 interface Schema {
   [field: string]: FieldSchema;
 }
+type SupportType = String | Number | Boolean | Array<any> | Date | Object;
+type Type = { type: string; } | SupportType;
 type FieldSchema =
-  { type: string; } &
-  {required?: boolean; } &
+  (Type & {required?: boolean; }) &
   {
-    [customrule: string]: (value: any) => Promise<boolean> | boolean
+    [customrule: string]: any
   };
 export interface Messages {
   [field: string]: Object;

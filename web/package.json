@@ -30,6 +30,7 @@
     "tslint-react": "^3.0.0",
     "typescript": "~2.4.0",
     "url-loader": "0.5.9",
+    "warning": "4.0.2",
     "webpack": "3.5.1",
     "webpack-dev-server": "2.7.1",
     "webpack-manifest-plugin": "1.2.1",
@@ -104,8 +105,18 @@
       [
         "module-resolver",
         {
-          "root": ["./src"],
-          "extensions": [".js", ".jsx", ".es", ".es6", ".mjs", ".tsx", ".ts"],
+          "root": [
+            "./src"
+          ],
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".es",
+            ".es6",
+            ".mjs",
+            ".tsx",
+            ".ts"
+          ],
           "alias": {
             "formput": "./src/dist/commonjs"
           }
