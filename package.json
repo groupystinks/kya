@@ -1,6 +1,6 @@
 {
   "name": "kya",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Javascript Object Validation",
   "main": "dist/index.js",
   "types": "dist/kya.d.ts",
