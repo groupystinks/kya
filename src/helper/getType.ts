@@ -1,14 +1,14 @@
-import { supportType } from '../type'
-import { captitalize, isArray, isObject } from '../helper/utils'
+import { supportType, SupportType } from '../type';
+import { captitalize, isArray, isObject } from '../helper/utils';
 
 export type typeOptions = {
-  arrayOf?: any,
+  arrayOf?: string,
   objectOf?: Object,
-}
+};
 
-function getType(type: any): [string, {}] {
+function getType(type: SupportType): [string, {}] {
   // type now support either 'string' or String
-  let typeName = ''
+  let typeName = '';
   const options: typeOptions = {};
 
   if (isArray(type)) {
@@ -28,9 +28,9 @@ function getType(type: any): [string, {}] {
       options.objectOf = type;
     }
   } else {
-    typeName = type.name ?
-    type.name.toLowerCase && type.name.toLowerCase() :
-    type.toLowerCase && type.toLowerCase();
+    // should look after it to resolve no name or toLowerCase issue.
+    // @ts-ignore
+    typeName = type.name ? type.name.toLowerCase && type.name.toLowerCase() : type.toLowerCase && type.toLowerCase();
   }
 
   if (supportType[captitalize(typeName)]) {

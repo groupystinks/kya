@@ -9,7 +9,7 @@ interface ObjectType {
 
 type typeOptions = {
   objectOf: Object,
-}
+};
 
 const ObjectType: ObjectType = {
   type(errorMsg?: String, options: typeOptions = { objectOf: {}}) {
@@ -21,13 +21,13 @@ const ObjectType: ObjectType = {
       }
 
       const isAllRight = Object.keys(options.objectOf).every(key => {
-        const fieldSchmea = options.objectOf[key]
-        let fieldType = fieldSchmea.type
+        const fieldSchmea = options.objectOf[key];
+        let fieldType = fieldSchmea.type;
         if (!fieldType) {
           fieldType = fieldSchmea;
         }
-        const [typeName, typeOptions] = getType(fieldType);
-        return types.supportTypeValidate[captitalize(typeName)].type(errorMsg, typeOptions)(target[key]) === false
+        const [typeName, childtypeOptions] = getType(fieldType);
+        return types.supportTypeValidate[captitalize(typeName)].type(errorMsg, childtypeOptions)(target[key]) === false;
       });
 
       if (isAllRight) {

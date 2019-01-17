@@ -7,21 +7,8 @@ import getType from './helper/getType';
 
 /**
  * @todo
- * support javascript native types:
-    String v
-    Number v
-    Date v
-    Boolean v
-    Array v
-    [{name: string}] like validation v
-    One level deep object v
-    Nested object v
-    Map
-    Set
-    Buffer
+ * support javascript native types: Map, Set, Buffer
  * Global error message.
- * 
- * 
  */
 
 export { default as compose } from './compose';
@@ -56,7 +43,7 @@ export interface FieldErrorMessages {
 function getValidator(fieldSchmea: FieldSchema, fieldMessages: FieldErrorMessages, field: string): Function {
   const { type, required, ...rest } = fieldSchmea;
   let fieldType = type;
-  let rules: Array<(value: any) => Promise<false | { message: any; }>> = [];
+  let rules: Array<(value: {}) => Promise<false | { message: string; }>> = [];
   if (!fieldType) {
     fieldType = fieldSchmea;
   } else {

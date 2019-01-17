@@ -6,6 +6,6 @@ export const isArray = (arg: {}) => Object.prototype.toString.call(arg) === '[ob
 export const isBoolean = (arg: {}) => Object.prototype.toString.call(arg) === '[object Boolean]';
 export const isObject = (arg: {}) => Object.prototype.toString.call(arg) === '[object Object]';
 export function captitalize(str: string): string {
-  if (!isString(str)) { return '' }
+  if (!isString(str)) { return ''; }
   return `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
 }

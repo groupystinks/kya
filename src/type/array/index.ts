@@ -16,7 +16,7 @@ const ArrayType: ArrayType = {
         return false;
       }
 
-      return supportTypeValidate[options.arrayOf].type(errorMsg, options)(target[0])
+      return supportTypeValidate[options.arrayOf].type(errorMsg, options)(target[0]);
     };
   },
   // length(length: Number, errorMsg?: String) {

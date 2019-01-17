@@ -1,4 +1,4 @@
-export type SupportType = String | Number | Boolean | Array<any> | Date | Object;
+export type SupportType = String | Number | Boolean | Array<{}> | Date | Object;
 
 const supportTypes = [
   'String', 'Number', 'Date',
@@ -12,7 +12,7 @@ const supportType = {
   Array: Array,
   Date: Date,
   Object: Object,
-}
+};
 
 import array from './array';
 import boolean from './boolean';
@@ -28,7 +28,7 @@ const supportTypeValidate = {
   Array: array,
   Date: date,
   Object: object,
-}
+};
 
 export {
   array, boolean, number,
